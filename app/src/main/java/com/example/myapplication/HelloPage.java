@@ -70,12 +70,12 @@ public class HelloPage extends AppCompatActivity {
 
 
     private void openCartActivity() {
-        Intent intent = new Intent(HelloPage.this, LoginPage.class);
+        Intent intent = new Intent(HelloPage.this, CartActivity.class);
         startActivity(intent);
     }
 
     private void homeMethod(){
-        Intent intent = new Intent(HelloPage.this , MainActivity.class);
+        Intent intent = new Intent(HelloPage.this , MainActivity2.class);
         startActivity(intent);
     }
     private void signoutMthod() {

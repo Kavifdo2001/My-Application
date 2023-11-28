@@ -1,14 +1,13 @@
 {
   "project_info": {
-    "project_number": "511209764840",
-    "firebase_url": "https://flower-shop-74d0a-default-rtdb.firebaseio.com",
-    "project_id": "flower-shop-74d0a",
-    "storage_bucket": "flower-shop-74d0a.appspot.com"
+    "project_number": "196547322872",
+    "project_id": "bloom2-b2554",
+    "storage_bucket": "bloom2-b2554.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:511209764840:android:c48fc0aebbac91e498d65d",
+        "mobilesdk_app_id": "1:196547322872:android:fb0511cac0a1e73cd3ec0d",
         "android_client_info": {
           "package_name": "com.example.myapplication"
         }
@@ -16,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCY6bpXakhV8QcWreJ5cwdmzOk2cEIu_dA"
+          "current_key": "AIzaSyCM4k5cGBTBenjbdbm-ZLPvflMjOW2LI3Q"
         }
       ],
       "services": {

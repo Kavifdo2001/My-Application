@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -97,13 +100,38 @@ public class RegisterPage extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(RegisterPage.this, "Registration Successful " , Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterPage.this,LoginPage.class);
-                    startActivity(intent);
-                    finish();
-                }
-                else {
-                    Toast.makeText(RegisterPage.this , "Error :" + task.getException() , Toast.LENGTH_SHORT ).show();
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
+
+                    //Enter data to realtime db
+                    ReadwriteUserDetails writeUserDetails = new ReadwriteUserDetails(name , regiEmail , regiPassword);
+
+                    //Extracting from db reference
+                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+                    referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                firebaseUser.sendEmailVerification();//email verification
+                                Toast.makeText(RegisterPage.this, "Account Created Successfully"
+                                        ,Toast.LENGTH_LONG).show();
+
+                                Intent intent = new Intent(RegisterPage.this , LoginPage.class);
+
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                        Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            }else{
+                                Toast.makeText(RegisterPage.this, "Account Created failed"
+                                        ,Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                }else {
+                    Toast.makeText(RegisterPage.this , task.getException().getMessage(),
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
